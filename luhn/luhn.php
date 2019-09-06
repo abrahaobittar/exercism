@@ -33,6 +33,8 @@ function isValid($text)
         $total = array_sum($lunhSequence) + array_sum($lunhSequenceComplete);
 
         return $total % 10 === 0 ? 'valido' : 'invalido';
+    } else {
+        return FALSE;
     }
 }
 
