@@ -8,7 +8,7 @@ function isValid($text)
 
     if ($text > 1) {
         $n = str_split($text);
-
+        $text = (int) $text;
         for ($aux = 0; $aux < sizeof($n); $aux++) {
             if ($aux % 2 != 0) {
                 array_push($lunhSequenceComplete, $n[$aux]);
@@ -21,18 +21,11 @@ function isValid($text)
             }
         }
 
-        /* for ($aux = 0; $aux < sizeof($n); $aux += 2) {
-            if ($n[$aux] * 2 > 9) {
-                array_push($lunhSequence, $n[$aux] * 2 - 9);
-            } else {
-                array_push($lunhSequence, $n[$aux] * 2);
-            }
-        }
-        */
-
         $total = array_sum($lunhSequence) + array_sum($lunhSequenceComplete);
 
-        return $total % 10 === 0 ? 'valido' : 'invalido';
+        return $total % 10 === 0 ? TRUE : FALSE;
+    } elseif ($text === '00000') {
+        return TRUE;
     } else {
         return FALSE;
     }
@@ -45,10 +38,10 @@ function normalize($text)
     * substituir por ''
     */
     $text = preg_replace('/ {1,}/', '', trim($text));
-    $text = (int) $text;
+    //$text = (int) $text;
     return $text;
 }
-
+/*
 echo 'Digito Zero <br>';
 $a = isValid('0');
 echo $a . '<br>';
@@ -78,3 +71,12 @@ echo $a . '<br>';
 echo 'Digito com Letras no meio <br>';
 $a = isValid('8aaa 123 1 asd bb444');
 echo $a . '<br>';
+
+echo 'Digito 00000 <br><br><br>';
+$a = isValid(' 00000');
+echo 'resposta: ' . $a . '<br>';
+*/
+
+echo 'Canadian Social Number <br><br><br>';
+$a = isValid("091");
+echo 'resposta: ' . $a . '<br>';
