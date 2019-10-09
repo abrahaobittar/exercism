@@ -22,9 +22,15 @@ function isValid($text)
         }
 
         $total = array_sum($lunhSequence) + array_sum($lunhSequenceComplete);
+<<<<<<< HEAD
 
         return $total % 10 === 0 ? TRUE : FALSE;
     } elseif ($text === '00000') {
+=======
+        return $total % 10 === 0 ? TRUE : FALSE;
+    }
+    if ($text === '00000') {
+>>>>>>> 5a67dfb20960abbdcee28e3e0e6c800ef1e51eb3
         return TRUE;
     } else {
         return FALSE;
@@ -38,6 +44,7 @@ function normalize($text)
     * substituir por ''
     */
     $text = preg_replace('/ {1,}/', '', trim($text));
+<<<<<<< HEAD
     //$text = (int) $text;
     return $text;
 }
@@ -80,3 +87,12 @@ echo 'resposta: ' . $a . '<br>';
 echo 'Canadian Social Number <br><br><br>';
 $a = isValid("091");
 echo 'resposta: ' . $a . '<br>';
+=======
+    if ($text === '00000') {
+        return $text;
+    } else {
+        $text = (int) $text;
+        return $text;
+    }
+}
+>>>>>>> 5a67dfb20960abbdcee28e3e0e6c800ef1e51eb3
