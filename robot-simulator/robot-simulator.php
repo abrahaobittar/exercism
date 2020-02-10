@@ -2,81 +2,84 @@
 
 class Robot
 {
-    const
-        DIRECTION_NORTH = 0,
-        DIRECTION_SOUTH = 1,
-        DIRECTION_EAST = 2,
-        DIRECTION_WEST = 3;
+    const DIRECTION_NORTH = 0;
+    const DIRECTION_EAST = 1;
+    const DIRECTION_SOUTH = 2;
+    const DIRECTION_WEST = 3;
 
-    public
-        $direction,
-        $coordinates = [0, 0];
+    public $direction = 0;
+    public $position = [];
 
-    public function __construct(array $coordinates, string $direction)
+    public function __construct(array $position, string $direction)
     {
-        $this->coordinates  = $coordinates;
         $this->direction = $direction;
+        $this->position = $position;
     }
 
     public function advance()
     {
         switch ($this->direction) {
-            case self::DIRECTION_NORTH;
-                $this->coordinates[0]++;
-                break;
-
-            case self::DIRECTION_SOUTH;
-                $this->position[0]--;
-                break;
-
-            case self::DIRECTION_EAST;
+            case 0;
                 $this->position[1]++;
                 break;
 
-            case self::DIRECTION_WEST;
+            case 1;
+                $this->position[0]++;
+                break;
+
+            case 2;
                 $this->position[1]--;
                 break;
+
+            case 3;
+                $this->position[0]--;
+                break;
         }
+        return $this;
     }
 
     public function turnLeft()
     {
-        if ($this->direction > self::DIRECTION_NORTH)
-            $this->direction = self::DIRECTION_WEST;
+        if ($this->direction == self::DIRECTION_NORTH)
+            $this->direction = 3;
+        else {
+            $this->direction--;
+        }
         return $this;
     }
 
     public function turnRight()
     {
-        if ($this->direction < self::DIRECTION_WEST)
-            $this->direction = self::DIRECTION_NORTH;
+        if ($this->direction == self::DIRECTION_WEST)
+            $this->direction = 0;
+        else {
+            $this->direction++;
+        }
         return $this;
     }
 
 
-    public function instruction($instructions)
+    public function instructions(string $instructions)
     {
+        if (preg_match('/[^LRA]/', $instructions)) {
+            throw new InvalidArgumentException();
+        }
+
         $instructions = str_split($instructions);
 
         foreach ($instructions as $i) {
-            if (preg_match('^[R,P,A,r,p,a]+$^', $i)) {
-                switch ($i) {
-                    case 'A':
-                        $this->advance();
-                        break;
-                    case 'R':
-                        $this->turnRight();
-                        break;
-                    case 'L':
-                        $this->turnLeft();
-                        break;
-                }
-            } else throw new InvalidArgumentException("Incorrect value!", 1);
+            switch ($i) {
+                case 'A':
+                    $this->advance();
+                    break;
+                case 'R':
+                    $this->turnRight();
+                    break;
+                case 'L':
+                    $this->turnLeft();
+                    break;
+            }
         }
+        return $this;
     }
 }
-
-
-$b = new Robot([7, 4], 'RABV');
-$b->instruction('RAR');
-var_dump($b);
