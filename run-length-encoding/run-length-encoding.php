@@ -6,20 +6,20 @@ class EncodeClass
     {
         $inputToEncode = str_split($input);
         $a = 0;
-        $b = 0;
+        $b = 1;
         $c = 0;
-        $sequenceMatch = 0;
+        $sequenceMatch = 1;
         $output = [];
 
         for ($aux = 0; $aux <= sizeof($inputToEncode); $aux++) {
             if ($inputToEncode[$a] === $inputToEncode[$b]) {
-                ++$b;
                 $sequenceMatch++;
-                $output[$c] = $sequenceMatch . $inputToEncode[$a];
+                $b++;
+                //$output[$c] = $sequenceMatch . $inputToEncode[$a];
             } else {
                 $a = $b;
-                $sequenceMatch = 0;
-                $c++;
+                $sequenceMatch = 1;
+                //$c++;
             }
 
             if (end($inputToEncode) === $inputToEncode[$b]) {
