@@ -11,6 +11,8 @@ class EncodeClass
         $sequenceMatch = 1;
         $output = [];
 
+     
+
         for ($aux = 0; $aux <= sizeof($inputToEncode); $aux++) {
             if ($inputToEncode[$a] === $inputToEncode[$b]) {
                 $sequenceMatch++;
